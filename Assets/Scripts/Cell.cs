@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cell : MonoBehaviour {
 
     public SpriteRenderer SpriteRend;
+    public GameObject Effect;
     public Sprite Face;
     public Sprite Back;
     public Sprite Mine;
@@ -29,6 +30,7 @@ public class Cell : MonoBehaviour {
     void ChangeSprite()
     {
         SpriteRend.sprite = Face;
+        //Instantiate(Effect, transform.position, transform.rotation);
             
     }
 }
