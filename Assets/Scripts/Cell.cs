@@ -6,10 +6,13 @@ public class Cell : MonoBehaviour {
 
     public SpriteRenderer SpriteRend;
     public GameManager Manager;
+
     public int x_id;
     public int y_id;
+
     public Sprite Face;
     public Sprite Back;
+    public Sprite BackFlag;
     public Sprite Mine;
     public Sprite One;
     public Sprite Two;
@@ -24,6 +27,7 @@ public class Cell : MonoBehaviour {
     public int num_of_Mines = 0;
 
     public bool isMine = false;
+    public bool isFlag = false;
     public bool isChecked = false;
 
 
@@ -48,11 +52,25 @@ public class Cell : MonoBehaviour {
 
     }
 	
-	// Update is called once per frame
-	void Update ()
+	// TODO: For some reason  right click not working, need to be debugged and clarified
+	void OnMouseDown()
     {
-		
-	}
+        if (Input.GetMouseButtonDown(1))
+        {
+
+            if (!isChecked && !Manager.isOver && !isFlag)
+            {
+                SpriteRend.sprite = BackFlag;
+                isFlag = true;
+            }
+            if (!isChecked && !Manager.isOver && isFlag)
+            {
+                SpriteRend.sprite = Back;
+                isFlag = false;
+            }
+        }
+
+    }
 
     public void ChangeSprite()
     {
