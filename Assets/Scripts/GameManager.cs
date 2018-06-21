@@ -130,11 +130,12 @@ public class GameManager : MonoBehaviour {
                 if(CellArray[i, j].isMine)
                 {
                     CellArray[i, j].SpriteRend.sprite = CellArray[i, j].Mine;
+                    
                 }
                 
             }
         }
-        isOver = false;
+        isOver = true;
     }
 
     void checkForNumber()
@@ -312,5 +313,4 @@ public class GameManager : MonoBehaviour {
 
         }
     }
-
 }
