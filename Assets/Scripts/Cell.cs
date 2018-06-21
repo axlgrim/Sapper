@@ -5,13 +5,17 @@ using UnityEngine;
 public class Cell : MonoBehaviour {
 
     public SpriteRenderer SpriteRend;
-    public GameObject Effect;
+    public GameManager Manager;
+    public int x_id;
+    public int y_id;
     public Sprite Face;
     public Sprite Back;
     public Sprite Mine;
 
+    public bool isMine = false;
+
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         SpriteRend.sprite = Back;
     }
@@ -29,7 +33,15 @@ public class Cell : MonoBehaviour {
 
     void ChangeSprite()
     {
-        SpriteRend.sprite = Face;
+        if(!isMine)
+        {
+            SpriteRend.sprite = Face; 
+        }
+        else
+        {
+            SpriteRend.sprite = Mine;
+        }
+
         //Instantiate(Effect, transform.position, transform.rotation);
             
     }
