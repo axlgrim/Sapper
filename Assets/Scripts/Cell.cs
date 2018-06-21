@@ -11,22 +11,41 @@ public class Cell : MonoBehaviour {
     public Sprite Face;
     public Sprite Back;
     public Sprite Mine;
+    public Sprite One;
+    public Sprite Two;
+    public Sprite Three;
+    public Sprite Four;
+    public Sprite Five;
+    public Sprite Six;
+    public Sprite Seven;
+    public Sprite Eight;
+
+
+    public int num_of_Mines = 0;
 
     public bool isMine = false;
+    public bool isChecked = false;
 
-	// Use this for initialization
-	void Awake ()
+
+    // Use this for initialization
+    void Awake ()
     {
         SpriteRend.sprite = Back;
     }
 
     void OnMouseUp()
     {
-        ChangeSprite();
-        if(!this.isMine)
+        if (!Manager.isOver)
         {
-            Manager.checkCellsAround(this);
+            isChecked = true;
+            ChangeSprite();
+            if (!this.isMine)
+            {
+                Manager.checkCellsAround(this);
+            }
+
         }
+
     }
 	
 	// Update is called once per frame
@@ -39,7 +58,38 @@ public class Cell : MonoBehaviour {
     {
         if(!isMine)
         {
-            SpriteRend.sprite = Face;
+            switch (num_of_Mines)
+            {
+                case 1:
+                    SpriteRend.sprite = One;
+                    break;
+                case 2:
+                    SpriteRend.sprite = Two;
+                    break;
+                case 3:
+                    SpriteRend.sprite = Three;
+                    break;
+                case 4:
+                    SpriteRend.sprite = Four;
+                    break;
+                case 5:
+                    SpriteRend.sprite = Five;
+                    break;
+                case 6:
+                    SpriteRend.sprite = Six;
+                    break;
+                case 7:
+                    SpriteRend.sprite = Seven;
+                    break;
+                case 8:
+                    SpriteRend.sprite = Eight;
+                    break;
+                default:
+                    SpriteRend.sprite = Face;
+                    break;
+
+            }
+            
 
         }
         else

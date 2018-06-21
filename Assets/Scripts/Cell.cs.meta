@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: 82de2002bec5ccc45ba0aa1459898bf7
-timeCreated: 1529439969
+timeCreated: 1529603827
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - SpriteRend: {instanceID: 0}
+  - Manager: {instanceID: 0}
+  - Face: {fileID: 21300000, guid: 15b8d4942d9165e4aa58e158033aba3b, type: 3}
+  - Back: {fileID: 21300000, guid: f5a9d3e77f4cb9b42b0688cb63154aa7, type: 3}
+  - Mine: {fileID: 21300000, guid: b43ac11732c44441eacc00c1dc8dd9f3, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

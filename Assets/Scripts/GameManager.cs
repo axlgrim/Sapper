@@ -6,10 +6,11 @@ public class GameManager : MonoBehaviour {
     
     static int rows = 9;
     static int columns = 9;
-    static int mine_num = 10;
+    static int mine_num = 15;
     static float offset_X = 3.5f;
     static float offset_Y = 3.5f;
     public Cell Cell;
+    public bool isOver = false;
 
     static Cell[,] CellArray = new Cell[rows,columns];
 
@@ -78,18 +79,39 @@ public class GameManager : MonoBehaviour {
             }
             
         }
+
+        checkForNumber();
     }
 
     public void checkCellsAround(Cell openedCell)
     {
-        if(openedCell.x_id>0 && openedCell.y_id> 0
-           && openedCell.y_id < 9 && openedCell.x_id <9)
+        int i = openedCell.x_id;
+        int j = openedCell.y_id;
+        if (i + 1 < 8 && !CellArray[i + 1, j].isMine && !CellArray[i + 1, j].isChecked )
         {
-            checkCell(CellArray[openedCell.x_id - 1, openedCell.y_id]);
-            checkCell(CellArray[openedCell.x_id + 1, openedCell.y_id]);
-            checkCell(CellArray[openedCell.x_id, openedCell.y_id - 1]);
-            checkCell(CellArray[openedCell.x_id, openedCell.y_id + 1]);
+            CellArray[i + 1, j].ChangeSprite();
+            CellArray[i + 1, j].isChecked = true;
+            checkCellsAround(CellArray[i + 1, j]);
         }
+        if (i - 1 > 0 && !CellArray[i - 1, j].isMine && !CellArray[i-1, j].isChecked)
+        {
+            CellArray[i - 1, j].ChangeSprite();
+            CellArray[i - 1, j].isChecked = true;
+            checkCellsAround(CellArray[i - 1, j]);
+        }
+        if (j + 1 < 8 && !CellArray[i, j+1].isMine && !CellArray[i, j+1].isChecked)
+        {
+            CellArray[i, j + 1].ChangeSprite();
+            CellArray[i, j + 1].isChecked = true;
+            checkCellsAround(CellArray[i, j+1]);
+        }
+        if (j - 1 > 0 && !CellArray[i, j - 1].isMine && !CellArray[i, j - 1].isChecked )
+        {
+            CellArray[i, j - 1].ChangeSprite();
+            CellArray[i, j - 1].isChecked = true;
+            checkCellsAround(CellArray[i, j - 1]);
+        }
+
     }
     void checkCell(Cell openedCell)
     {
@@ -111,6 +133,183 @@ public class GameManager : MonoBehaviour {
                 }
                 
             }
+        }
+        isOver = false;
+    }
+
+    void checkForNumber()
+    {
+        int mine_cnt;
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                mine_cnt = 0;
+
+                if(i == 0 && j == 0 && !CellArray[i, j].isMine)
+                {
+                    if (CellArray[i, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j+1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                }
+                if (i == 8 && j == 8 && !CellArray[i, j].isMine)
+                {
+                    if (CellArray[i, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                }
+                if (i == 0 && j == 8 && !CellArray[i, j].isMine)
+                {
+                    if (CellArray[i, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                }
+                if (i == 8 && j == 0 && !CellArray[i, j].isMine)
+                {
+                    if (CellArray[i, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                }
+                if (i == 8 && j == 8 && !CellArray[i, j].isMine)
+                {
+                    if (CellArray[i, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                }
+                if (i != 0 && j == 0 && i!= 8 && !CellArray[i, j].isMine)
+                {
+                    if (CellArray[i, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j+1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+
+                }
+                if (i == 0 && j != 0 &&  j != 8 && !CellArray[i, j].isMine)
+                {
+                    if (CellArray[i, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i+1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+
+                }
+                if (i != 0 && j != 0 && i != 8 && j != 8 && !CellArray[i, j].isMine)
+                {
+                    if (CellArray[i, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j+1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i - 1, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j + 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+                    if (CellArray[i + 1, j - 1].isMine)
+                    {
+                        mine_cnt++;
+                    }
+
+                }
+
+                CellArray[i, j].num_of_Mines = mine_cnt;
+
+            }
+
         }
     }
 
