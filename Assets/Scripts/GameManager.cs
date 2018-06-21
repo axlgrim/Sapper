@@ -78,7 +78,40 @@ public class GameManager : MonoBehaviour {
             }
             
         }
-
-        
     }
+
+    public void checkCellsAround(Cell openedCell)
+    {
+        if(openedCell.x_id>0 && openedCell.y_id> 0
+           && openedCell.y_id < 9 && openedCell.x_id <9)
+        {
+            checkCell(CellArray[openedCell.x_id - 1, openedCell.y_id]);
+            checkCell(CellArray[openedCell.x_id + 1, openedCell.y_id]);
+            checkCell(CellArray[openedCell.x_id, openedCell.y_id - 1]);
+            checkCell(CellArray[openedCell.x_id, openedCell.y_id + 1]);
+        }
+    }
+    void checkCell(Cell openedCell)
+    {
+        if(!openedCell.isMine)
+        {
+            openedCell.ChangeSprite();
+        }
+    }
+
+    public void gameOver()
+    {
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                if(CellArray[i, j].isMine)
+                {
+                    CellArray[i, j].SpriteRend.sprite = CellArray[i, j].Mine;
+                }
+                
+            }
+        }
+    }
+
 }

@@ -23,6 +23,10 @@ public class Cell : MonoBehaviour {
     void OnMouseUp()
     {
         ChangeSprite();
+        if(!this.isMine)
+        {
+            Manager.checkCellsAround(this);
+        }
     }
 	
 	// Update is called once per frame
@@ -31,15 +35,16 @@ public class Cell : MonoBehaviour {
 		
 	}
 
-    void ChangeSprite()
+    public void ChangeSprite()
     {
         if(!isMine)
         {
-            SpriteRend.sprite = Face; 
+            SpriteRend.sprite = Face;
+
         }
         else
         {
-            SpriteRend.sprite = Mine;
+            Manager.gameOver();
         }
 
         //Instantiate(Effect, transform.position, transform.rotation);
