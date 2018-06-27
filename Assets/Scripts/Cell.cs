@@ -107,6 +107,8 @@ public class Cell : MonoBehaviour {
                     break;
 
             }
+
+            Manager.openedCells++;
             
 
         }

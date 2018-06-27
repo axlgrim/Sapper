@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
     static float offset_Y = 3.5f;
     public Cell Cell;
     public bool isOver = false;
+    public int openedCells = 0;
+    public int totalCells = 81;
 
     static Cell[,] CellArray = new Cell[rows,columns];
 
@@ -58,6 +60,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update () 
     {
+        
 		
 	}
 
