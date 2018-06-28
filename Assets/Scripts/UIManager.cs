@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
     
-    public Text timerField;
-    public Text scoreField;
+    public Text TimerField;
+    public Text ScoreField;
     public Text EndMessage;
 
     public GameManager Manager;
@@ -15,15 +15,15 @@ public class UIManager : MonoBehaviour {
     public GameObject EndMenu;
     public Image Progress;
 
-    private float timer;
+    private float _timer;
 
-    private string minutes;
-    private string seconds;
+    private string _minutes;
+    private string _seconds;
 
     private void Awake()
     {
         Resume();
-        scoreField.text = "PROGRESS";
+        ScoreField.text = "PROGRESS";
         EndMenu.SetActive(false);
 
     }
@@ -31,18 +31,18 @@ public class UIManager : MonoBehaviour {
 
     void Update()
     {
-        timer = Time.timeSinceLevelLoad;
-        minutes = ((int)timer / 60).ToString();
-        seconds = ((int)timer % 60).ToString();
-        timerField.text = minutes + ":" + seconds;
+        _timer = Time.timeSinceLevelLoad;
+        _minutes = ((int)_timer / 60).ToString();
+        _seconds = ((int)_timer % 60).ToString();
+        TimerField.text = _minutes + ":" + _seconds;
 
 
 
         CheckProgress();
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !Manager.isOver)
+        if (Input.GetKeyDown(KeyCode.Escape) && !Manager.IsOver)
         {
-            if (Manager.isPaused)
+            if (Manager.IsPaused)
             {
                 Resume();
             }
@@ -52,11 +52,11 @@ public class UIManager : MonoBehaviour {
             }
         }
 
-        if(Manager.isOver)
+        if(Manager.IsOver)
         {
             if(Progress.fillAmount == 1f)
             {
-                Finish(Color.green, "YOU WIN!");
+                Finish(Color.blue, "YOU WIN!");
             }
             else
             {
@@ -71,14 +71,14 @@ public class UIManager : MonoBehaviour {
     {
         PauseMenu.SetActive(false);
         Time.timeScale = 1f;
-        Manager.isPaused = false;
+        Manager.IsPaused = false;
     }
 
     void Pause()
     {
         PauseMenu.SetActive(true);
         Time.timeScale = 0f;
-        Manager.isPaused = true;
+        Manager.IsPaused = true;
     }
 
     public void OnResumeBtnClicked()
@@ -98,17 +98,17 @@ public class UIManager : MonoBehaviour {
 
     void CheckProgress()
     {
-        Progress.fillAmount = ((float)Manager.openedCells / ((float)Manager.totalCells - (float)Manager.mine_num));
+        Progress.fillAmount = ((float)Manager.OpenedCells / ((float)Manager.TotalCells - (float)Manager.Mine_num));
         if(Progress.fillAmount == 1f)
         {
-            Manager.isOver = true;
+            Manager.IsOver = true;
         }
     }
 
     void Finish(Color c, string message)
     {
         Time.timeScale = 0f;
-        Manager.gameOver();
+        Manager.GameOver();
         EndMenu.SetActive(true);
         EndMessage.color = c;
         EndMessage.text = message;

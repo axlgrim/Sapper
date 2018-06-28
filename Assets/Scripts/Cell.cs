@@ -26,55 +26,50 @@ public class Cell : MonoBehaviour {
 
     public int num_of_Mines = 0;
 
-    public bool isMine = false;
-    public bool isFlag = false;
-    public bool isChecked = false;
+    public bool IsMine = false;
+    public bool IsFlag = false;
+    public bool IsChecked = false;
 
 
     // Use this for initialization
-    void Awake ()
+    void Start ()
     {
         SpriteRend.sprite = Back;
     }
 
     void OnMouseUp()
     {
-        if (!Manager.isOver && !Manager.isPaused)
+        if (!Manager.IsOver && !Manager.IsPaused)
         {
-            isChecked = true;
+            IsChecked = true;
             ChangeSprite();
-            if (!this.isMine)
+            if (!this.IsMine)
             {
-                Manager.checkCellsAround(this);
+                Manager.CheckCellsAround(this);
             }
 
+        }
+        if (Input.GetMouseButtonDown(2))
+        {
+
+            if (!IsChecked && !Manager.IsOver && !IsFlag)
+            {
+                SpriteRend.sprite = BackFlag;
+                IsFlag = true;
+            }
+            if (!IsChecked && !Manager.IsOver && IsFlag)
+            {
+                SpriteRend.sprite = Back;
+                IsFlag = false;
+            }
         }
 
     }
 	
-	// TODO: For some reason  right click not working, need to be debugged and clarified
-	void OnMouseDown()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-
-            if (!isChecked && !Manager.isOver && !isFlag)
-            {
-                SpriteRend.sprite = BackFlag;
-                isFlag = true;
-            }
-            if (!isChecked && !Manager.isOver && isFlag)
-            {
-                SpriteRend.sprite = Back;
-                isFlag = false;
-            }
-        }
-
-    }
 
     public void ChangeSprite()
     {
-        if(!isMine)
+        if(!IsMine)
         {
             switch (num_of_Mines)
             {
@@ -108,14 +103,14 @@ public class Cell : MonoBehaviour {
 
             }
 
-            Manager.openedCells++;
+            Manager.OpenedCells++;
             
 
         }
         else
         {
-            Manager.gameOver();
-            Manager.isOver = true;
+            Manager.GameOver();
+            Manager.IsOver = true;
         }
 
         //Instantiate(Effect, transform.position, transform.rotation);
