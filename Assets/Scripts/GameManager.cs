@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
         int j;
         int cnt = 0;
 
-        while(cnt <= mine_num )
+        while(cnt < mine_num )
         {
             i = Random.Range(0, 9);
             j = Random.Range(0, 9);

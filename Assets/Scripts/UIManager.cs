@@ -5,24 +5,26 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
-
+    
     public Text timerField;
     public Text scoreField;
+    public Text EndMessage;
 
     public GameManager Manager;
     public GameObject PauseMenu;
+    public GameObject EndMenu;
     public Image Progress;
 
     private float timer;
 
     private string minutes;
     private string seconds;
-    private bool _ended = false;
 
     private void Awake()
     {
         Resume();
         scoreField.text = "PROGRESS";
+        EndMenu.SetActive(false);
 
     }
 
@@ -38,7 +40,7 @@ public class UIManager : MonoBehaviour {
 
         CheckProgress();
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !_ended)
+        if (Input.GetKeyDown(KeyCode.Escape) && !Manager.isOver)
         {
             if (Manager.isPaused)
             {
@@ -52,8 +54,17 @@ public class UIManager : MonoBehaviour {
 
         if(Manager.isOver)
         {
-            
+            if(Progress.fillAmount == 1f)
+            {
+                Finish(Color.green, "YOU WIN!");
+            }
+            else
+            {
+                Finish(Color.red, "YOU LOOSE!");
+            }
+
         }
+
     }
 
     void Resume()
@@ -88,11 +99,22 @@ public class UIManager : MonoBehaviour {
     void CheckProgress()
     {
         Progress.fillAmount = ((float)Manager.openedCells / ((float)Manager.totalCells - (float)Manager.mine_num));
-        if(Progress.fillAmount == 1)
+        if(Progress.fillAmount == 1f)
         {
             Manager.isOver = true;
         }
     }
+
+    void Finish(Color c, string message)
+    {
+        Time.timeScale = 0f;
+        Manager.gameOver();
+        EndMenu.SetActive(true);
+        EndMessage.color = c;
+        EndMessage.text = message;
+    }
+
+
 
 
 }

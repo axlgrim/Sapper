@@ -115,6 +115,7 @@ public class Cell : MonoBehaviour {
         else
         {
             Manager.gameOver();
+            Manager.isOver = true;
         }
 
         //Instantiate(Effect, transform.position, transform.rotation);
