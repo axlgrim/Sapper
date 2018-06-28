@@ -6,13 +6,14 @@ public class GameManager : MonoBehaviour {
     
     static int rows = 9;
     static int columns = 9;
-    static int mine_num = 15;
+    public int mine_num = 15;
     static float offset_X = 3.5f;
     static float offset_Y = 3.5f;
     public Cell Cell;
     public bool isOver = false;
     public int openedCells = 0;
     public int totalCells = 81;
+    public bool isPaused = false;
 
     static Cell[,] CellArray = new Cell[rows,columns];
 

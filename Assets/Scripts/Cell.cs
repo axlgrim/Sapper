@@ -39,7 +39,7 @@ public class Cell : MonoBehaviour {
 
     void OnMouseUp()
     {
-        if (!Manager.isOver)
+        if (!Manager.isOver && !Manager.isPaused)
         {
             isChecked = true;
             ChangeSprite();
