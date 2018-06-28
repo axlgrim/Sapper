@@ -91,6 +91,11 @@ public class UIManager : MonoBehaviour {
         SceneManager.LoadScene("MainScene");
     }
 
+    public void OnQuitBtnClicked()
+    {
+        Application.Quit();
+    }
+
     public void OnMenuBtnClicked()
     {
         SceneManager.LoadScene("MainMenu");

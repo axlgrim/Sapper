@@ -6,10 +6,15 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
 
 
-    public void onPlayClicked()
+    public void OnPlayClicked()
     {
         SceneManager.LoadScene("MainScene");
     }
-		
-	
+
+    public void OnQuitClicked()
+    {
+        Application.Quit();
+    }
+
+
 }
